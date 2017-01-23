@@ -4,15 +4,9 @@ const express = require('express');
 const app = express();
 const volleyball = require('volleyball');
 const nunjucks = require('nunjucks');
-const routes = require('./routes/');
 const bodyParser = require('body-parser');
-
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize('postgres://localhost:5432/wikidb');
-// 'wikidb', 'username', 'password', {
-//   host: 'localhost',
-//   dialect: 'postgres',
-//   });
+const routes = require('./routes/');
+const models = require('./models')
 
 app.engine('html', nunjucks.render);
 app.set('view engine', 'html');
@@ -24,6 +18,13 @@ app.use('/', routes);
 
 app.use(express.static('public'));
 
-app.listen(3000, function() {
-  console.log('Port 3000 is listening');
-});
+models.User.sync({})
+  .then(function() {
+    return models.Page.sync({})
+  })
+  .then(function() {
+    app.listen(3000, function() {
+      console.log('Port 3000 is listening');
+    });
+  })
+  .catch(console.error);

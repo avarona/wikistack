@@ -5,24 +5,12 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const jsonParser = bodyParser.json();
-const sequelize = require('sequelize');
+const db = require('sequelize');
 
-router.get('/home', function(req, res, next) {
+router.get('/', function(req, res, next) {
   console.log('hello');
-
-  let syncingTeamsTable = Teams.sync();
-
-  syncingTeamsTable
-    .then(function() {
-        Teams.create({
-            name: 'Hufflepuff',
-            points: 2
-        });
-    })
-
-  res.send()
+  res.render('layout');
   next();
 });
-
 
 module.exports = router;
