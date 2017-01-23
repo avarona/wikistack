@@ -5,19 +5,27 @@ const app = express();
 const volleyball = require('volleyball');
 const nunjucks = require('nunjucks');
 const bodyParser = require('body-parser');
-const routes = require('./routes/');
-const models = require('./models')
+const wikiRouter = require('./routes/');
+const models = require('./models/');
 
+// set up nunjucks for template assembly (boilerplate)
 app.engine('html', nunjucks.render);
 app.set('view engine', 'html');
-nunjucks.configure('views', { noCahse: true} );
+nunjucks.configure('views', { noCache: true} );
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// log server messages in console
 app.use(volleyball);
 
-app.use('/', routes);
+// for '/wiki/' path, use routes
+app.use('/wiki', wikiRouter);
 
+// files unde 'public' are usable for clients
 app.use(express.static('public'));
 
+// sync databse and initiate server
 models.User.sync({})
   .then(function() {
     return models.Page.sync({})
