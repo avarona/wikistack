@@ -1,0 +1,28 @@
+{
+  "name": "wikistack",
+  "version": "1.0.0",
+  "description": "Wikipedia app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/avarona/wikistack.git"
+  },
+  "keywords": [
+    "wiki"
+  ],
+  "author": "Alejandro & James",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/avarona/wikistack/issues"
+  },
+  "homepage": "https://github.com/avarona/wikistack#readme",
+    "dependencies": {
+      "body-parser": "^1.15.2",
+      "express": "^4.14.0",
+      "nunjucks": "^3.0.0",
+      "volleyball": "^1.4.1"
+  }
